@@ -68,8 +68,16 @@ class MainMenu
 end
 ```
 
-More detailed documentation coming soon.
+See the [example](https://github.com/joefiorini/drink-menu/tree/master/examples/basic_main_menu) for basic usage. More detailed documentation & examples coming soon.
 
+## Running the Examples
+
+To run our example apps:
+
+1. Clone this repo
+2. From within your clone's root, run `platform=osx example=basic_main_menu rake`
+
+You can replace the value of `example` with any folder under the `examples` directory to run that example.
 
 ## Contributing
 
