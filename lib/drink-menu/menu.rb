@@ -101,6 +101,7 @@ module DrinkMenu
       end
     end
 
+    # Only works when built with menuWithLabel:itemsFromCollection:titleProperty
     def subscribeToMembers(&block)
       memberCommand.signal.subscribeNext(block)
     end
