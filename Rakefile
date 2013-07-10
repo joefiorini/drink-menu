@@ -1,5 +1,6 @@
 require "bundler/gem_tasks"
 $:.unshift("/Library/RubyMotion/lib")
+
 if ENV['platform'] == 'osx'
     require 'motion/project/template/osx'
 else
@@ -9,8 +10,14 @@ end
 Bundler.setup
 Bundler.require
 
+require 'motion-cocoapods'
+
 Motion::Project::App.setup do |app|
   app.name = 'drink-menu'
   app.identifier = 'com.densitypop.drink-menu'
   app.specs_dir = "spec/"
+
+  app.pods do
+    pod 'ReactiveCocoa'
+  end
 end
