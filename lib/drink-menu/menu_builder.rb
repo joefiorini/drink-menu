@@ -1,7 +1,7 @@
 module DrinkMenu
   module MenuBuilder
 
-    class Context
+    class Context < BasicObject
         def initialize(menu, menuItems={})
           @menu = menu
           @menuItems = menuItems

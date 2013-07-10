@@ -77,9 +77,8 @@ describe "sugar for creating menus" do
 
       menu[1].should.be.nil
 
-      Context.new(menu).send :"___"
+      Context.new(menu).__send__ :"___"
 
-      puts menu.menuItems.inspect
       menu[1].isSeparatorItem.should.be.true
     end
 
