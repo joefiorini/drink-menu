@@ -8,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.version       = DrinkMenu::VERSION
   spec.authors       = ["Joe Fiorini"]
   spec.email         = ["joe@joefiorini.com"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
-  spec.homepage      = ""
+  spec.description   = %q{An easy way to define menu items and visually lay out menus for your OSX apps. Uses ReactiveCocoa to provide a nice syntax for responding to menu interactions. Also provides live-binding to collections, which makes keeping menus up-to-date a breeze!}
+  spec.summary       = %q{OSX menus - the ruby way}
+  spec.homepage      = "https://github.com/joefiorini/drink-menu"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
