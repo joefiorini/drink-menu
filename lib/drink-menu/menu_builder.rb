@@ -45,6 +45,11 @@ module DrinkMenu
       @menus[label] = Menu.statusMenuWithLabel label, title: title, &block
     end
 
+    def statusBarMenu(label, icon: image, statusItemViewClass: statusItemViewClass, &block)
+      @menus ||= {}
+      @menus[label] = Menu.statusMenuWithLabel label, icon: image, statusItemViewClass: statusItemViewClass, &block
+    end
+
     def statusBarMenu(label, icon: image, &block)
       @menus ||= {}
       @menus[label] = Menu.statusMenuWithLabel label, icon: image, &block

@@ -18,6 +18,12 @@ module DrinkMenu
     attr_reader :menuItems, :menu, :builder, :label
     attr_accessor :statusItem, :statusItemIcon, :memberCommand, :statusItemTitle, :memberTitleProperty, :itemAddedSubject
 
+    def self.statusMenuWithLabel(label, icon: image, statusItemViewClass: statusItemViewClass, &block)
+      new(label, &block).tap do |menu|
+        menu.createStatusItemWithIcon image, viewClass: statusItemViewClass
+      end
+    end
+
     def self.statusMenuWithLabel(label, icon: image, &block)
       new(label, &block).tap do |menu|
         menu.createStatusItemWithIcon image
@@ -113,6 +119,12 @@ module DrinkMenu
       @statusItemIcon = image
     end
 
+    def createStatusItemWithIcon(image, viewClass: viewClass)
+      @needsStatusItem = true
+      @statusItemViewClass = viewClass
+      @statusItemIcon = image
+    end
+
     def selectItem(label)
       item = self[label]
       item.command.execute(item)
@@ -143,11 +155,18 @@ module DrinkMenu
       statusBar = NSStatusBar.systemStatusBar
       @statusItem = statusBar.statusItemWithLength(NSSquareStatusItemLength)
       @statusItem.highlightMode = true
+
       @statusItem.menu = menu
-      @statusItem.setupView
+
+      if @statusItemViewClass
+        statusItemView = @statusItemViewClass.viewWithStatusItem(@statusItem)
+        @statusItem.menu.delegate = @statusItemView
+        @statusItem.view = statusItemView
+      end
+
       @statusItem.title = @statusItemTitle
       @statusItem.image = @statusItemIcon
-      @statusItem.originalImage = @statusItemIcon
+
       @statusItem
     end
 
