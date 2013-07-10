@@ -17,6 +17,8 @@ Motion::Project::App.setup do |app|
   app.identifier = 'com.densitypop.drink-menu'
   app.specs_dir = "spec/"
 
+  app.files << Dir["example/**/*.rb"] if ENV['example']
+
   app.pods do
     pod 'ReactiveCocoa'
   end
