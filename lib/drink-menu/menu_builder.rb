@@ -55,6 +55,11 @@ module DrinkMenu
       @menus[label] = Menu.statusMenuWithLabel label, icon: image, &block
     end
 
+    def mainMenu(label, title: title, &block)
+      @menus ||= {}
+      @menus[label] = Menu.menuWithLabel label, title: title, menuItem: true, &block
+    end
+
     def menu(label, title: title, &block)
       @menus ||= {}
       @menus[label] = Menu.menuWithLabel label, title: title, &block
@@ -75,8 +80,18 @@ module DrinkMenu
         context.instance_eval(&menu.builder) if menu.builder
         if menu.needsStatusItem?
           menu.createStatusItem!
+        elsif menu.needsMenuItem?
+          @mainMenu ||= NSMenu.new
+          @mainMenu.addItem menu.menuItemFromMenu!.menuItem
         end
       end
+      setupMainMenu if @mainMenu
+    end
+
+    private
+
+    def setupMainMenu
+      NSApp.mainMenu = @mainMenu
     end
 
   end

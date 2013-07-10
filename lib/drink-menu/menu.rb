@@ -36,6 +36,14 @@ module DrinkMenu
       end
     end
 
+    def self.menuWithLabel(label, title: title, menuItem: needsMenuItem, &block)
+      new(label, &block).tap do |menu|
+        menu.title = title
+        menu.createMenuItemWithTitle title if needsMenuItem
+      end
+    end
+
+
     def self.menuWithLabel(label, title: title, &block)
       new(label, &block).tap do |menu|
         menu.title = title
@@ -72,6 +80,8 @@ module DrinkMenu
       @label = label
       @builder = block
       @menu = NSMenu.alloc.init
+      @needsStatusItem = false
+      @needsMenuItem = false
     end
 
     def <<(item)
@@ -79,6 +89,10 @@ module DrinkMenu
       item.tag = previousItemTag + 1
       @menuItems[item.tag] = item
       @menu.addItem item.menuItem
+    end
+
+    def menuItemFromMenu!
+      @mainMenuItem ||= MenuItem.itemWithLabel(label, title: title, submenu: self)
     end
 
     def addMenuItemForMember(member)
@@ -108,6 +122,11 @@ module DrinkMenu
 
     def subscribe(itemLabel, &block)
       self[itemLabel].subscribe(&block)
+    end
+
+    def createMenuItemWithTitle(title)
+      @needsMenuItem = true
+      @statusItemTitle = title
     end
 
     def createStatusItemWithTitle(title)
@@ -150,6 +169,10 @@ module DrinkMenu
 
     def needsStatusItem?
       @needsStatusItem
+    end
+
+    def needsMenuItem?
+      @needsMenuItem
     end
 
     def createStatusItem!

@@ -1,4 +1,5 @@
 class TestMenu; extend DrinkMenu::MenuBuilder; end
+class TestMenu2; include DrinkMenu::MenuBuilder; end
 
 describe "sugar for creating menus" do
 
@@ -39,21 +40,52 @@ describe "sugar for creating menus" do
   end
 
   it "evaluates menu's block to add items to menu" do
-    item1 = TestMenu.menuItem :test_item1, title: "Blah"
-    item2 = TestMenu.menuItem :test_item2, title: "Blah"
+    builder = TestMenu2.new
+    item1 = builder.menuItem :test_item1, title: "Blah"
+    item2 = builder.menuItem :test_item2, title: "Blah"
 
-    TestMenu.menu :main_menu, title: "Main" do
+    builder.menu :main_menu, title: "Main" do
       test_item1
       ___
       test_item2
     end
 
-    TestMenu.build!
+    builder.build!
 
-    TestMenu[:main_menu][:test_item1].should.equal item1
-    TestMenu[:main_menu][:test_item2].should.equal item2
+    builder[:main_menu][:test_item1].should.equal item1
+    builder[:main_menu][:test_item2].should.equal item2
 
-    TestMenu[:main_menu][2].isSeparatorItem.should.be.true
+    builder[:main_menu][2].isSeparatorItem.should.be.true
+  end
+
+  it "supports generating an NSApp's mainMenu items" do
+    builder = TestMenu2.new
+    testItem1 = builder.menuItem :test_item1, title: "Blah 1"
+    testItem2 = builder.menuItem :test_item2, title: "Blah 2"
+
+    menu1 = builder.mainMenu :menu1, title: "Menu 1" do
+      test_item1
+    end
+
+    menu2 = builder.mainMenu :menu2, title: "Menu 2" do
+      test_item2
+    end
+
+    builder.build!
+
+    mainMenu = NSApp.mainMenu
+
+    menuItem = mainMenu.itemArray[0]
+    puts "menu1 title: #{menu1.title.inspect}"
+    puts "menuItem title: #{menuItem.title.inspect}"
+    menuItem.title.should.equal menu1.title
+    menuItem.submenu.title.should.equal menu1.title
+    menuItem.submenu.itemArray[0].title.should.equal("Blah 1")
+
+    menuItem = mainMenu.itemArray[1]
+    menuItem.title.should.equal(menu2.title)
+    menuItem.submenu.title.should.equal menu2.title
+    menuItem.submenu.itemArray[0].title.should.equal("Blah 2")
   end
 
   describe "builder's context class" do
