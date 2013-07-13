@@ -1,6 +1,8 @@
 # Drink::Menu
 
-TODO: Write a gem description
+## Welcome Ruby5 Listeners
+
+If you're here because you heard about this library on Ruby5, please [see my recent blog post](http://joefiorini.com/posts/generating-menus-in-osx-apps-the-ruby-way) for more details and an example. Thanks for checking out my library!
 
 ## Installation
 
