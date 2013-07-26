@@ -1,8 +1,4 @@
-# Drink::Menu
-
-## Welcome Ruby5 Listeners
-
-If you're here because you heard about this library on Ruby5, please [see my recent blog post](http://joefiorini.com/posts/generating-menus-in-osx-apps-the-ruby-way) for more details and an example. Thanks for checking out my library!
+# DrinkMenu
 
 ## Installation
 
@@ -71,6 +67,8 @@ end
 ```
 
 See the [example](https://github.com/joefiorini/drink-menu/tree/master/examples/basic_main_menu) for basic usage. More detailed documentation & examples coming soon.
+
+[See my recent blog post](http://joefiorini.com/posts/generating-menus-in-osx-apps-the-ruby-way) for a bit more information.
 
 ## Running the Examples
 
