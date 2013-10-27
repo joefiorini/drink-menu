@@ -22,6 +22,6 @@ Motion::Project::App.setup do |app|
   end
 
   app.pods do
-    pod 'ReactiveCocoa'
+    pod 'ReactiveCocoa', '1.8.1'
   end
 end
